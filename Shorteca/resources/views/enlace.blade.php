@@ -6,14 +6,14 @@
     <meta name="description" content="Acorta tus enlaces de forma publica o privada con Shorteca. Tu mejor opción para acortar links.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ asset('css/inicio.css')}}">
     <title>Shorteca</title>
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="logo"><i class="fa-solid fa-scissors"></i></div>
-            <div class="titulo">Shorteca</div>
+            <div class="titulo">Shorteca pag2</div>
             <div class="espacio"></div>
             <div class="cuenta">
                 <span>Cuenta</span>
@@ -29,9 +29,10 @@
                 <p class="slogan">Genera énlaces acortados privados o públicos.</p>
             </div>
             <div class="entrada">
-                <form class="shorten-container">
+                <form class="shorten-container" method="POST" action="{{ route('inicio.post') }}">
+                    @csrf
                     <i class="fa-solid fa-link"></i>
-                    <input type="url" placeholder="Ingresa tu URL aquí..." class="url-input">
+                    <input type="url" placeholder="Ingresa tu URL aquí..." class="url-input" name="url">
                     <button class="shorten-btn" type="submit">Acortar</button>
                 </form>
                 <div class="settings-container">
@@ -89,8 +90,14 @@
     </main>
 
     <footer>
-
     </footer>
-    <script src="script.js"></script>
+
+    <script>
+        let codigo = @json($codigo);
+        let entrada = @json($entrada);
+            console.log(codigo);
+            console.log(entrada);
+    </script>
+    <script src="{{ asset('js/inicio.js')}}"></script>
 </body>
 </html>

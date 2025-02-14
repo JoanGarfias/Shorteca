@@ -1,6 +1,8 @@
 let publico = true;
 
+
 document.addEventListener("DOMContentLoaded", function() {
+
     let acortarBtn = document.querySelector(".shorten-btn");
     let ajustesBtn = document.querySelector(".setting-btn");
     let formulario = document.querySelector(".shorten-container");
@@ -10,34 +12,75 @@ document.addEventListener("DOMContentLoaded", function() {
     let contra = document.querySelector(".contrasena");
     let contra_input = document.querySelector(".input-pass");
     let toggleBtn = document.querySelector(".toggle-pass");
+    let urlResultado = document.querySelector(".myinput-link");
+    let qr = document.querySelector(".codigo-qr-valor");
+    let descargarqr = document.querySelector(".cssbuttons-io-button");
+
 
     let url = document.querySelector(".url-input");
     let notificacion = document.querySelector(".notifications-container");
     let notificacion_texto = document.querySelector(".error-prompt-heading");
 
 
-    formulario.addEventListener("submit", function(event) {
-        if(url.value.length <= 0) {
-            event.preventDefault();
+    formulario.addEventListener("submit", async function(event) {
+        event.preventDefault(); // Evita la recarga de la página
+        let hayError = false; // Bandera para detectar errores
+    
+        if (url.value.length <= 0) {
             notificacion.style.display = "flex";
-            notificacion_texto.innerHTML = "ERROR: La URL no es valida";
-            return false;
+            notificacion_texto.innerHTML = "ERROR: La URL no es válida";
+            hayError = true;
         }
-        if(!publico){
+    
+        if (!publico) {
             let contra_valor = contra_input.value;
-            console.log(contra_valor)
-            if(contra_valor.length <= 4){
-                alert("La contraseña no es valida");
-                event.preventDefault();
+            console.log(contra_valor);
+            if (contra_valor.length < 4) {
+                alert("La contraseña no es válida");
                 notificacion.style.display = "flex";
-                notificacion_texto.innerHTML = "ERROR: La contraseña debe tener 4 carácteres mínimo";
-                return false;
+                notificacion_texto.innerHTML = "ERROR: La contraseña debe tener al menos 4 caracteres";
+                hayError = true;
             }
         }
-        console.log("Segui ejecutando")
-        notificacion.style.display = "none";
+    
+        // Si no hay errores, ocultar notificación y permitir el envío
+        if (!hayError) {
+            notificacion.style.display = "none";
+        }
+
+        const form = event.target;
+        const formData = new FormData(form);
+    
+        try {
+            const response = await fetch("{{ route('inicio.post') }}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                }
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                document.getElementsByClassName("resultados").style.display = "flex";
+                urlResultado.innerHTML = data.codigo;
+                const codigoQR = new QRCode(qr, {
+                text: data.codigo,
+                width: 128,
+                height: 128
+                });
+            } else {
+                notificacion.style.display = "flex";
+                notificacion_texto.innerHTML = "ERROR: No se pudo acortar la URL";
+            }
+        } catch (error) {
+            notificacion.style.display = "flex";
+            notificacion_texto.innerHTML = "ERROR: El servidor no ha respondido correctamente.";
+        }
 
     });
+    
 
     url.addEventListener("input", function() {
         notificacion.style.display = "none";
@@ -57,16 +100,19 @@ document.addEventListener("DOMContentLoaded", function() {
     enlacePublico.addEventListener("click", function(event){
         publico = true;
         settingsMenu.style.display = "none";
+        formulario.classList.remove("active");
         contra.style.display = "none";
     });
 
     enlacePrivado.addEventListener("click", function(event){
         publico = false;
         settingsMenu.style.display = "none";
+        formulario.classList.add("active");
         contra.style.display = "flex";
     });
 
-    toggleBtn.addEventListener("click", function() {
+    toggleBtn.addEventListener("click", function(event) {
+        event.preventDefault();
         if (contra_input.type === "password") {
             contra_input.type = "text";
             toggleBtn.innerHTML = `

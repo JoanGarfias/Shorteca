@@ -21,6 +21,13 @@ document.addEventListener("DOMContentLoaded", function() {
     let notificacion = document.querySelector(".notifications-container");
     let notificacion_texto = document.querySelector(".error-prompt-heading");
 
+    /*REDES SOCIALES */
+    const inputLink = document.querySelector(".myinput-link");
+    const facebook = document.querySelector(".fa-facebook");
+    const linkedin = document.querySelector(".fa-linkedin");
+    const telegram = document.querySelector(".fa-telegram");
+    const whatsapp = document.querySelector(".fa-whatsapp");
+
 
     formulario.addEventListener("submit", async function(event) {
         event.preventDefault(); // Evita la recarga de la página
@@ -164,6 +171,59 @@ document.addEventListener("DOMContentLoaded", function() {
         link.download = "shorteca_qr.png"; // Nombre del archivo
         link.click();
     });
+
+    function compartirEnlace(redSocial) {
+        if (!inputLink.value) {
+            alert("No hay un enlace para compartir.");
+            return;
+        }
+
+
+        const urlInput = url.value;
+        console.log(url);
+        console.log(urlInput);
+        const mensaje = encodeURIComponent("Ingresa a mi enlace acortado con Shorteca: " + inputLink.value);
+        let linkCompartir = "";
+
+        switch (redSocial) {
+            case "facebook":
+                /*ESTO SE DEBE MODIFICAR*/
+                FB.ui({
+                    method: 'share_open_graph',
+                    action_type: 'og.shares',
+                    action_properties: JSON.stringify({
+                        object: {
+                            'og:url': urlInput,
+                            'og:title': '¡Descubre mi enlace acortado!',
+                            'og:description': 'Accede a este enlace generado con Shorteca.',
+                            'og:image': document.querySelector('meta[property="og:image"]').getAttribute("content")
+                        }
+                    })
+                }, function(response) {
+                    if (response && !response.error_message) {
+                        console.log("✅ Enlace compartido con éxito.");
+                    } else {
+                        console.error("❌ Error al compartir:", response?.error_message);
+                    }
+                });
+                
+                break;
+            case "linkedin":
+                linkCompartir = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                break;
+            case "telegram":
+                linkCompartir = `https://t.me/share/url?url=${url}&text=${mensaje}`;
+                break;
+            case "whatsapp":
+                linkCompartir = `https://api.whatsapp.com/send?text=${mensaje}`;
+                break;
+        }
+    }
+
+    facebook.addEventListener("click", () => compartirEnlace("facebook"));
+    linkedin.addEventListener("click", () => compartirEnlace("linkedin"));
+    telegram.addEventListener("click", () => compartirEnlace("telegram"));
+    whatsapp.addEventListener("click", () => compartirEnlace("whatsapp"));
     
 
 });

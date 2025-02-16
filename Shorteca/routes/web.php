@@ -8,4 +8,7 @@ Route::get('/inicio', [ControladorInicio::class, 'index'])->name('inicio.get');
 Route::post('/inicio', [ControladorInicio::class, 'acortar'])->name('inicio.post');
 
 
-Route::get('/{link}', [ControladorInicio::class, 'acceder'])->name('acceso.get');
+Route::get('/contra', [ControladorInicio::class, 'contra'])->name('contra.get');
+Route::post('/contra', [ControladorInicio::class, 'accederContra'])->name('contra.post');
+
+Route::get('/{link}', [ControladorInicio::class, 'acceder'])->where('link', '.*')->name('acceder');

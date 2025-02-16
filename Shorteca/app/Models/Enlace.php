@@ -10,6 +10,6 @@ class Enlace extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'enlace';
-
-    protected $fillable = ['destino', 'acortado'];
+    protected $primaryKey = 'id_e'; 
+    protected $fillable = ['destino', 'acortado', 'contrasena'];
 }

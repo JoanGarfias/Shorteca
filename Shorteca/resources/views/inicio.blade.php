@@ -10,7 +10,15 @@
     <meta name="post-url" content="{{ route('inicio.post') }}">
     <meta name="get-url" content="{{ route('ini.get') }}">
 
-    
+    <meta property="og:url" content="{{ request()->fullUrl() }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="¡Visita mi enlace acortado con Shorteca!" />
+    <meta property="og:description" content="Acorta y comparte enlaces fácilmente con Shorteca. ¡Pruébalo ahora!" />
+    <meta property="og:image" content="{{asset('img/Shorteca.png')}}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{asset('css/inicio.css')}}">
     <title>SHORTECA</title>
@@ -146,6 +154,26 @@
 
     <footer>
     </footer>
+
+    <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '1163637445487432',  // Reemplaza con tu App ID
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v18.0' // Asegúrate de usar la última versión disponible
+          });
+        };
+      
+        (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/es_ES/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>      
+
     <script src="{{asset('js/inicio.js')}}"></script>
     <script src="{{asset('js/qrcodejs/qrcode.min.js')}}"></script>
 </body>

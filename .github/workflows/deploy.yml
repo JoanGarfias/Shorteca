@@ -1,0 +1,27 @@
+name: 🚀 Deploy a Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obtener código del repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar conexión SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 65002 -H ${{ secrets.HOSTINGER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Subir archivos al servidor (excluyendo .env)
+        run: |
+          rsync -avz --exclude '.git' --exclude '.github' --exclude '.env' \
+          -e "ssh -p 65002 -i ~/.ssh/id_rsa" ./ \
+          ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_IP }}:/home/${{ secrets.HOSTINGER_USER }}/domains/bisque-anteater-166462.hostingersite.com/

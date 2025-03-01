@@ -1,4 +1,4 @@
-name: 🚀 Deploy a Hostinger
+name: 🚀 Deploy for Hostinger
 
 on:
   push:
@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Obtener código del repositorio
+      - name: Get the code of repository
         uses: actions/checkout@v3
 
-      - name: Configurar conexión SSH
+      - name: Configure the SSH connection
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p 65002 -H ${{ secrets.HOSTINGER_IP }} >> ~/.ssh/known_hosts
 
-      - name: Subir archivos al servidor (excluyendo .env)
+      - name: Uploading the files to Hostinger
         run: |
           rsync -avz --exclude '.git' --exclude '.github' --exclude '.env' \
           -e "ssh -p 65002 -i ~/.ssh/id_rsa" ./ \

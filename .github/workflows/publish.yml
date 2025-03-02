@@ -21,11 +21,10 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOSTINGER_IP }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: 65002
           script: |
+            ssh -p 65002 ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_IP }}
+            ${{ secrets.HOSTINGER_SSH_KEY }}
             cd ~/domains/bisque-anteater-166462.hostingersite.com
             git pull origin main
             composer install --no-dev --optimize-autoloader

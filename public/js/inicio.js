@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const urlInput = url.value;
         console.log(url);
         console.log(urlInput);
-        const mensaje = encodeURIComponent("Ingresa a mi enlace acortado con Shorteca: " + );
+        const mensaje = encodeURIComponent("Ingresa a mi enlace acortado con Shorteca: " + urlResultado.value);
         let linkCompartir = "";
 
         switch (redSocial) {

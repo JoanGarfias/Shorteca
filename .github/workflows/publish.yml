@@ -22,7 +22,7 @@ jobs:
         with:
           host: ${{ secrets.HOSTINGER_IP }}
           username: ${{ secrets.HOSTINGER_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
           port: 65002
           script: |
             cd ~/domains/bisque-anteater-166462.hostingersite.com

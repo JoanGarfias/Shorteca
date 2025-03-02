@@ -31,4 +31,5 @@ jobs:
             php artisan migrate --force
             php artisan cache:clear
             php artisan config:clear
-            rsync -av --delete public/ ~/domains/bisque-anteater-166462.hostingersite.com/public_html/
+            rm -rf ~/domains/bisque-anteater-166462.hostingersite.com/public_html/*
+            mv public/* ~/domains/bisque-anteater-166462.hostingersite.com/public_html/

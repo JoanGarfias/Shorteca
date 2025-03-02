@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const urlInput = url.value;
         console.log(url);
         console.log(urlInput);
-        const mensaje = encodeURIComponent("Ingresa a mi enlace acortado con Shorteca: " + inputLink.value);
+        const mensaje = encodeURIComponent("Ingresa a mi enlace acortado con Shorteca: " + );
         let linkCompartir = "";
 
         switch (redSocial) {
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     action_type: 'og.shares',
                     action_properties: JSON.stringify({
                         object: {
-                            'og:url': urlInput,
+                            'og:url': urlResultado.value,
                             'og:title': '¡Descubre mi enlace acortado!',
                             'og:description': 'Accede a este enlace generado con Shorteca.',
                             'og:image': document.querySelector('meta[property="og:image"]').getAttribute("content")

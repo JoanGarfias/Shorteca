@@ -21,28 +21,35 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{asset('css/inicio.css')}}">
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
     <title>SHORTECA</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo"><i class="fa-solid fa-scissors"></i></div>
-            <div class="titulo">Shorteca</div>
-            <div class="espacio"></div>
-            <div class="cuenta">
+    <header class="container-fluid">
+        <nav class="row- navbar">
+            <div class="col-md-1 logo"><i class="fa-solid fa-scissors"></i></div>
+            <div class="col-md-1 titulo">Shorteca</div>
+            <div class="col-md-4"></div>
+            <div class="col-md-1 cuenta">
                 <span>Cuenta</span>
                 <i class="fa-solid fa-user"></i>
-            </div>             
+            </div>
+            <div class="col-md-2 api">
+                <span>API</span>
+                <i class="fa-solid fa-user"></i>
+            </div>        
         </nav>
     </header>
 
     <main>
-        <section class="inicio">
-            <div class="mensaje">
+        <section class="container inicio">
+            <div class="row mensaje">
                 <p class="bienvenido">¡Bienvenido a <span class="mensaje_titulo">Shorteca!</span></p>
                 <p class="slogan">Genera énlaces acortados privados o públicos.</p>
             </div>
-            <div class="entrada">
+            <div class="row entrada">
                 <form method="POST" class="shorten-container" action="{{route('inicio.post')}}">
                     <div class="form-izq">
                         <i class="fa-solid fa-link"></i>
@@ -87,18 +94,18 @@
             </div>
         </section>
 
-        <section class="resultados">
+        <section class="container-fluid resultados">
             <div class="resultados-container"> 
-                <p class="url-titulo">¡Tu énlace se ha generado <span class="exito">exitosamente</span>!</p>
-                <div class="container">
+                <p class="row url-titulo">¡Tu énlace se ha generado <span class="exito">exitosamente</span>!</p>
+                <div class="row resultados">
                     <input class="myinput-link" readonly/>
                     <span class="link-icon">
                     🔗
                     <span class="tooltip">Copiar</span>
                     </span>
                 </div>
-                <div class="extra">
-                    <div class="extra-qr">
+                <div class="row extra">
+                    <div class="col extra-qr">
                         <p class="url-titulo">Puedes acceder por medio del <span class="codigoqr">código QR</span>:</p>
                         <div class="codigo-qr">
                             <div class="codigo-qr-valor">
@@ -122,7 +129,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="extra-red">
+                    <div class="col extra-red">
                         <p class="url-titulo">Comparte en tus <span class="codigoqr">redes sociales</span>:</p>
                         <div class="redes">
                             <i class="fa-brands fa-facebook"></i>

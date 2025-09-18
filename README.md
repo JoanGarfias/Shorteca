@@ -1,36 +1,16 @@
-# **Shorteca - Acortador de enlaces gratuito**  
+# Laravel + PrimeVue Starter Kit
 
-📌 **Shorteca** es un acortador de enlaces gratuito y eficiente que permite gestionar y analizar enlaces de forma sencilla. Diseñado para ofrecer una experiencia fluida, cuenta con una interfaz intuitiva y estadísticas básicas de los enlaces acortados.  
+## About
 
-## 🌟 **Características principales**  
-- ✅ Acortamiento de enlaces de manera rápida y gratuita. 
-- ✅ Ajustes de privacidad para acortamiento de énlaces (público/privado)
-- ✅ Almacenamiento de contraseñas para acortamientos privados.
-- ✅ Gestión y seguimiento de enlaces.
-- ✅ Generación de códigos QR con posibilidad de descarga al acortar un énlace.
-- ✅ Posibilidad de compartir en Facebook tu énlace acortado.
+![Static Badge](https://img.shields.io/badge/Laravel%20-%20v12%20-%20%23f9322c) ![Static Badge](https://img.shields.io/badge/Inertia.js%20-%20v2%20-%20%236b46c1) ![Static Badge](<https://img.shields.io/badge/Vue.js%20-%20v3.5%20-%20rgb(66%20184%20131)>) ![Static Badge](<https://img.shields.io/badge/PrimeVue%20-%20v4%20-%20rgb(16%20185%20129)>) ![Static Badge](https://img.shields.io/badge/Tailwind%20CSS%20-%20v4%20-%20%230284c7)
 
-## ⚒️ **Características en desarrollo**
-- ✅ Estadísticas de visitas para cada enlace.  
-- ✅ API para integrar con otras aplicaciones. 
-- ✅ Sistema de cuentas de usuario.
-- ✅ Pago de cuenta premium.
-- ✅ Limitar peticiones por cada cuenta.
-- ✅ Compartir tu énlace en otras redes sociales como Linkedin, X, etc.
+A basic authentication starter kit using [Laravel](https://laravel.com/docs/master), [Intertia.js](https://inertiajs.com/), [PrimeVue](https://primevue.org/) components, and [Tailwind CSS](https://tailwindcss.com/).
 
-## 🛠️ **Tecnologías utilizadas**  
-### **Backend:**  
-- **Laravel** - Framework PHP para la lógica de negocio y el manejo de enlaces.  
-- **MySQL** - Base de datos relacional para almacenar enlaces y estadísticas.  
-- **Eloquent ORM** - Para la gestión de la base de datos.  
+> [!TIP]
+> Do you need a separate Vue SPA front-end instead of using Inertia.js? Consider using the [PrimeVue SPA + Laravel API Starter Kit](https://github.com/connorabbas/laravel-api-primevue-starter-kit) instead.
 
-### **Frontend:**  
-- **HTML, CSS y JavaScript** - Para la interfaz de usuario.    
-- **Blade (Laravel Views)** - Sistema de plantillas para renderizar las vistas.  
+## Resources
 
-### **Otros:**  
-- **GitHub Actions** - Automatización de despliegues.
-- **Hostinger** - Hosting utilizado para la puesta en producción.  
+[🌐 **Demo Application**](https://demo.laravel-primevue-starter-kit.com/)
 
-### ✨ **Créditos**
-- Desarrollado por Joan Garfias
+[📚 **Documentation**](https://connorabbas.github.io/laravel-primevue-starter-kit-docs/)

@@ -1,14 +1,19 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ControladorInicio;
+use Inertia\Inertia;
 
-Route::get('/', [ControladorInicio::class, 'index'])->name('ini.get');
-Route::get('/inicio', [ControladorInicio::class, 'index'])->name('inicio.get');
-Route::post('/inicio', [ControladorInicio::class, 'acortar'])->name('inicio.post');
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('welcome');
 
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/contra', [ControladorInicio::class, 'contra'])->name('contra.get');
-Route::post('/contra', [ControladorInicio::class, 'accederContra'])->name('contra.post');
-
-Route::get('/{link}', [ControladorInicio::class, 'acceder'])->where('link', '.*')->name('acceder');
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

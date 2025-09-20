@@ -1,23 +1,24 @@
-/.phpunit.cache
-/node_modules
-/bootstrap/ssr
-/public/build
-/public/hot
-/public/storage
-/public/themes
-/storage/*.key
-/vendor
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
 .env
-.env.backup
-.env.production
-.phpactor.json
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-components.d.ts
-/.fleet
-/.idea
-/.vscode
+.env.*
+!.env.example

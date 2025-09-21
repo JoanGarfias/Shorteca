@@ -1,5 +1,6 @@
 
 <template>
+    <ClientOnly>
     <div class="card">
         <Menubar :model="items">
             <template #start>
@@ -23,7 +24,7 @@
                     </defs>
                     </svg>
 
-                    <Label class="text-xl font-bold">Shorteca</Label>
+                    <label class="text-xl font-bold">Shorteca</Label>
                 </NuxtLink>
             </template>
             <template #item="{ item, props, hasSubmenu, root }">
@@ -40,7 +41,7 @@
 
             <template #end>
                 <div class="flex items-center gap-5">
-                    <i :class="{'pi pi-moon': darkModeState, 'pi pi-sun': !darkModeState}" @click="toggleDarkMode"></i>
+                    <i :class="{'pi pi-moon': modeSelector.mode=='dark', 'pi pi-sun': modeSelector.mode=='light'}" @click="changeModeSelector"></i>
                     <div class="flex items-center gap-2">
                         <Label>Ingresar</Label>
                         <Avatar label="JP" shape="circle" />
@@ -49,19 +50,23 @@
             </template>
         </Menubar>
     </div>
+    </ClientOnly>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
-const darkModeState = ref(false);
+const modeDark = ref<boolean>(false);
+const modeSelector = useModeSelector();
 
-function toggleDarkMode() {
-    darkModeState.value = !darkModeState.value;
-    if(darkModeState.value)
-      document.documentElement.classList.toggle('p-dark', darkModeState.value);
-    else
-      document.documentElement.classList.remove('p-dark');
-}
+const changeModeSelector = () => {
+  modeDark.value = !modeDark.value;
+  if(modeDark.value){
+    modeSelector.changeToDarkMode();
+  }else{
+    modeSelector.changeToLightMode();
+  }
+};
+
 
 const items = ref([
     {

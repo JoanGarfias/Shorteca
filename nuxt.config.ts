@@ -4,7 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { definePreset } from '@primeuix/themes';
 
 const MyPreset = definePreset(Lara, {
-	name: 'shorteca-preset',
+				name: 'shorteca-preset',
   semantic: {
         primary: {
             50: '{indigo.50}',
@@ -20,36 +20,36 @@ const MyPreset = definePreset(Lara, {
             950: '{indigo.950}'
         }
   },
-	ripple: true
+				ripple: true
 });
 
 export default defineNuxtConfig({
-	app: {
-		head: {
-			title: "Nuxt App",
-		},
-		link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-	},
-	devtools: { enabled: false },
-	css: [
-		'~~/assets/main.css'
-	],
-	modules: ["@primevue/nuxt-module"],
-	primevue: {
-		options: {
-			theme: {
-				preset: MyPreset,
-				options: {
-					darkModeSelector: '.p-dark'
-				}
-			},
-		},
-		autoImport: true
-	},
-	vite: {
-		plugins: [
-			tailwindcss(),
-		]
-	},
-	compatibilityDate: "2025-02-26"
+				app: {
+								head: {
+												title: "Nuxt App",
+								},
+								link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+				},
+				devtools: { enabled: false },
+				css: [
+								'~~/assets/main.css'
+				],
+				modules: ["@primevue/nuxt-module", '@pinia/nuxt'],
+				primevue: {
+								options: {
+												theme: {
+																preset: MyPreset,
+																options: {
+																				darkModeSelector: '.p-dark'
+																}
+												},
+								},
+								autoImport: true
+				},
+				vite: {
+								plugins: [
+												tailwindcss(),
+								]
+				},
+				compatibilityDate: "2025-02-26"
 });

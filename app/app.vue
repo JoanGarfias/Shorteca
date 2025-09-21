@@ -1,6 +1,6 @@
 <template>
-<AppConfig />
 <NuxtLayout>
+    <MenuMain />
     <NuxtPage />
 </NuxtLayout>
 </template>

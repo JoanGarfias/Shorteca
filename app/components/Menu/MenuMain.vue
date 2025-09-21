@@ -1,0 +1,83 @@
+
+<template>
+    <div class="card">
+        <Menubar :model="items">
+            <template #start>
+                <NuxtLink to="/" class="flex items-center">
+                    <svg width="64" height="64" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="64" cy="64" rx="54" ry="56" fill="#ECD2E6"/>
+                    <g filter="url(#filter0_d_2_9)">
+                    <path d="M61.6994 107.98C50.9317 99.5542 40.2907 91.2237 29.6637 82.8857C29.2715 82.5779 28.7775 82.2076 28.7361 81.8468C28.4363 79.2351 28.2408 76.6183 28 73.863C35.153 73.863 41.936 73.863 48.6585 73.863C48.8217 74.0254 49.0032 74.1214 48.9966 74.2116C48.6603 78.8176 51.8481 82.2458 57.1246 85.1389C59.6478 86.5224 61.6375 88.3182 64.0334 90.0458C68.5656 87.221 72.9114 84.9248 76.4749 82.1959C82.0102 77.9568 80.459 71.8993 73.1538 68.9561C65.6666 65.9396 57.8469 63.2746 50.2318 60.3897C47.1273 59.2136 44.0175 57.9987 41.186 56.5698C27.5573 49.6925 24.8692 36.3878 35.5065 27.1103C43.772 19.9014 55.4628 17.2983 68.8354 18.1579C81.7905 18.9907 91.352 23.3611 96.9394 31.1292C99.4293 34.591 100.107 38.2816 99.8099 42.2097C93.0226 42.2097 86.3392 42.2097 79.6081 42.2097C79.3562 40.8084 79.2901 39.4051 78.8294 38.0591C76.9865 32.6751 68.5893 29.7361 59.8436 31.3473C52.2535 32.7455 48.0496 37.8289 50.4509 42.6749C51.5332 44.859 53.7773 46.4099 56.743 47.5283C65.6139 50.8737 74.4831 54.2218 83.4153 57.4968C91.6261 60.5073 98.0293 64.5548 99.4999 70.8124C100.358 74.4636 99.8486 78.2539 99.8625 81.9818C99.8641 82.3914 99.3614 82.8571 98.9202 83.2038C87.7297 91.9991 76.5167 100.782 65.3008 109.564C65.135 109.694 64.8833 109.777 64.4339 110C63.5627 109.356 62.6955 108.716 61.6994 107.98Z" fill="#5825AC"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_d_2_9" x="24" y="18" width="80" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="4"/>
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_9"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_9" result="shape"/>
+                    </filter>
+                    </defs>
+                    </svg>
+
+                    <Label class="text-xl font-bold">Shorteca</Label>
+                </NuxtLink>
+            </template>
+            <template #item="{ item, props, hasSubmenu, root }">
+                <NuxtLink :to="item.page">
+                    <a v-ripple class="flex items-center" v-bind="props.action">
+                        <i :class="item.icon"></i>
+                        <span>{{ item.label }}</span>
+                        <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
+                        <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <i v-if="hasSubmenu" :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
+                    </a>
+                </NuxtLink>
+            </template>
+
+            <template #end>
+                <div class="flex items-center gap-5">
+                    <i :class="{'pi pi-moon': darkModeState, 'pi pi-sun': !darkModeState}" @click="toggleDarkMode"></i>
+                    <div class="flex items-center gap-2">
+                        <Label>Ingresar</Label>
+                        <Avatar label="JP" shape="circle" />
+                    </div>
+                </div>
+            </template>
+        </Menubar>
+    </div>
+</template>
+
+<script setup>
+import { ref, watch } from "vue";
+const darkModeState = ref(false);
+
+function toggleDarkMode() {
+    darkModeState.value = !darkModeState.value;
+    if(darkModeState.value)
+      document.documentElement.classList.toggle('p-dark', darkModeState.value);
+    else
+      document.documentElement.classList.remove('p-dark');
+}
+
+const items = ref([
+    {
+        label: 'Inicio',
+        icon: 'pi pi-home',
+        page: '/'
+    },
+    {
+        label: 'API',
+        icon: 'pi pi-book',
+        page: '/api-docs'
+    },
+    {
+        label: 'Acerca de ',
+        icon: 'pi pi-list-check',
+        page: '/about'
+    },
+]);
+</script>

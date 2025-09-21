@@ -41,7 +41,7 @@
 
             <template #end>
                 <div class="flex items-center gap-5">
-                    <i :class="{'pi pi-moon': modeSelector.mode=='dark', 'pi pi-sun': modeSelector.mode=='light'}" @click="changeModeSelector"></i>
+                    <i class="rounded-2xl p-2" :class="{'pi pi-moon bg-purple-500': modeSelector.mode=='dark', 'pi pi-sun bg-purple-200': modeSelector.mode=='light'}" @click="changeModeSelector"></i>
                     <div class="flex items-center gap-2">
                         <Label>Ingresar</Label>
                         <Avatar label="JP" shape="circle" />

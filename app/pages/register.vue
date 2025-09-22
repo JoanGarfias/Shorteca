@@ -34,11 +34,6 @@ const password = ref('');
                 <InputIcon class="pi pi-user" />
                 <InputText type="text" v-model="username" class="appearance-none! border! w-full! outline-0! rounded-3xl! shadow-sm!" placeholder="Nombre de usuario" />
               </IconField>
-              <!-- Campo de Nombre Completo -->
-              <IconField>
-                <InputIcon class="pi pi-user" />
-                <InputText type="text" v-model="fullName" class="appearance-none! border! w-full! outline-0! rounded-3xl! shadow-sm!" placeholder="Nombre completo" />
-              </IconField>
               <!-- Campo de Correo Electrónico -->
               <IconField>
                 <InputIcon class="pi pi-envelope" />

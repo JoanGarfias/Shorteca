@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import LinkGenerated from "~/components/LinkGenerated.vue";
 const modeSelector = useModeSelector();
 const link = ref<string>('');
 const password = ref<string>('');
@@ -60,6 +61,9 @@ watch(typeConfig, () => {
     </div>
 
     <Divider />
+
+
+    <LinkGenerated />
 
 
     <div class="mx-auto max-w-lg p-4 mt-8">

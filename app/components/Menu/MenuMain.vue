@@ -1,3 +1,48 @@
+<script setup lang="ts">
+import { ref, watch } from "vue";
+const modeDark = ref<boolean>(false);
+const modeSelector = useModeSelector();
+const infoUser = useInfoUser();
+
+const changeModeSelector = () => {
+  modeDark.value = !modeDark.value;
+  // infoUser.isLogged = !infoUser.isLogged;
+  if(modeDark.value){
+    modeSelector.changeToDarkMode();
+  }else{
+    modeSelector.changeToLightMode();
+  }
+};
+
+const getInitials = (name: string) => {
+    const words = name.split(' ');
+    let initials = '';
+    for (let i = 0; i < words.length; i++) {
+        initials += words[i].charAt(0).toUpperCase();
+    }
+    return initials;
+};
+
+const items = ref([
+    {
+        label: 'Inicio',
+        icon: 'pi pi-home',
+        page: '/'
+    },
+    {
+        label: 'API',
+        icon: 'pi pi-book',
+        page: '/api-docs'
+    },
+    {
+        label: 'Acerca de ',
+        icon: 'pi pi-list-check',
+        page: '/about'
+    },
+]);
+</script>
+
+
 
 <template>
     <ClientOnly>
@@ -43,8 +88,11 @@
                 <div class="flex items-center gap-5">
                     <i class="rounded-2xl p-2" :class="{'pi pi-moon bg-purple-500': modeSelector.mode=='dark', 'pi pi-sun bg-purple-200': modeSelector.mode=='light'}" @click="changeModeSelector"></i>
                     <div class="flex items-center gap-2">
-                        <Label>Ingresar</Label>
-                        <Avatar label="JP" shape="circle" />
+                        <!-- <Label v-if="!infoUser.isLogged" :class="{'hover:text-purple-200': modeSelector.mode=='dark', 'hover:text-purple-500': modeSelector.mode=='light'}">Ingresar</Label> -->
+                        <NuxtLink v-if="!infoUser.isLogged" to="/login">
+                            <Button type="button" label="Ingresar" icon="pi pi-user" badgeSeverity="contrast" variant="outlined" />
+                        </NuxtLink>
+                        <Avatar v-else :label="getInitials(infoUser.name)" shape="circle" />
                     </div>
                 </div>
             </template>
@@ -52,37 +100,3 @@
     </div>
     </ClientOnly>
 </template>
-
-<script setup lang="ts">
-import { ref, watch } from "vue";
-const modeDark = ref<boolean>(false);
-const modeSelector = useModeSelector();
-
-const changeModeSelector = () => {
-  modeDark.value = !modeDark.value;
-  if(modeDark.value){
-    modeSelector.changeToDarkMode();
-  }else{
-    modeSelector.changeToLightMode();
-  }
-};
-
-
-const items = ref([
-    {
-        label: 'Inicio',
-        icon: 'pi pi-home',
-        page: '/'
-    },
-    {
-        label: 'API',
-        icon: 'pi pi-book',
-        page: '/api-docs'
-    },
-    {
-        label: 'Acerca de ',
-        icon: 'pi pi-list-check',
-        page: '/about'
-    },
-]);
-</script>

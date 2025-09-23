@@ -1,7 +1,39 @@
 <script setup lang="ts">
 const link = ref('https://example.com');
+import logo from "@@/assets/logo.svg";
+const toast = useToast();
+const modeSelector = useModeSelector();
+
+useSeoMeta({
+  ogUrl: link.value,
+  ogType: 'website',
+  ogTitle: "Link acortado con Shorteca",
+  ogDescription: "",
+  ogImage: logo,
+})
+
+const shareLink = (red: string) => {
+  switch(red){
+    case 'whatsapp':
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(link.value)}`, '_blank');
+      break;
+    case 'facebook':
+      window.open(`https://www.facebook.com/sharer.php?src=sp&u=${encodeURIComponent(link.value)}`, '_blank');
+      break;
+    case 'telegram':
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(link.value)}`, '_blank');
+      break;
+  }
+}
+
 
 const copyLink = () => {
+    toast.add({
+      severity: 'success',
+      summary: 'Copiado',
+      detail: 'Enlace copiado al portapapeles.',
+      life: 1000
+    })
     navigator.clipboard.writeText(link.value);
 };
 
@@ -29,9 +61,20 @@ const copyLink = () => {
     </template>
     <template #footer>
         <div class="flex justify-center gap-5">
-            <i class="pi pi-whatsapp lg:!text-3xl !text-2xl"></i>
-            <i class="pi pi-facebook lg:!text-3xl !text-2xl"></i>
-            <i class="pi pi-telegram lg:!text-3xl !text-2xl"></i>
+            <i class="pi pi-whatsapp lg:!text-3xl !text-2xl hover:cursor-pointer"
+            :class="{'hover:text-indigo-600': modeSelector.mode == 'light', 'hover:text-indigo-300': modeSelector.mode == 'dark'}"
+            @click="shareLink('whatsapp')">
+            </i>
+
+            <i class="pi pi-facebook lg:!text-3xl !text-2xl hover:cursor-pointer"
+            :class="{'hover:text-indigo-600': modeSelector.mode == 'light', 'hover:text-indigo-300': modeSelector.mode == 'dark'}"
+            @click="shareLink('facebook')">
+            </i>
+
+            <i class="pi pi-telegram lg:!text-3xl !text-2xl hover:cursor-pointer"
+            :class="{'hover:text-indigo-600': modeSelector.mode == 'light', 'hover:text-indigo-300': modeSelector.mode == 'dark'}"
+            @click="shareLink('telegram')">
+            </i>
         </div>
     </template>
 </Card>

@@ -68,7 +68,7 @@ watch(typeConfig, () => {
 <Toast />
 
 <p class="py-10" />
-<h2 class="text-xl md:text-2xl font-bold text-center">
+<h2 class="text-2xl md:text-3xl font-bold text-center">
     <span class="inline-block">Acorta enlaces gratis, fácil y seguro con</span>
     <span class="inline-block px-2 text-purple-400">Shorteca.</span>
 </h2>

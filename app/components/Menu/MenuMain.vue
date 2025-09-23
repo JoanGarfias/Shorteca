@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 const modeSelector = useModeSelector();
 const infoUser = useInfoUser();
+const router = useRouter();
 
 const menuProfile = ref();
 const modeDark = ref<boolean>(false);
@@ -29,6 +30,10 @@ const getInitials = (name: string) => {
     return initials;
 };
 
+const navigateToUrlInternal = (url: string) => {
+  navigateTo(url);
+};
+
 const items = ref([
     {
         label: 'Inicio',
@@ -51,12 +56,16 @@ const itemsProfile = ref([
     {
         label: 'Perfil',
         icon: 'pi pi-user',
-        url: '/profile'
+        command: () => {
+          router.push("/profile")
+        }
     },
     {
         label: 'Cerrar sesión',
         icon: 'pi pi-sign-out',
-        url: '/logout'
+        command: () => {
+          router.push("/logout")
+        }
     },
 ]);
 

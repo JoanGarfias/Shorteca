@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import VueQrcode from 'vue-qrcode'
-
 const link = ref('https://example.com');
 import logo from "@@/assets/logo.svg";
+
 const toast = useToast();
 const modeSelector = useModeSelector();
+const qrcodeContainerRef = ref(null);
 
 useSeoMeta({
   ogUrl: link.value,
@@ -27,6 +28,43 @@ const shareLink = (red: string) => {
       break;
   }
 }
+
+const downloadQrCode = () => {
+  setTimeout(() => {
+    // 1. Accede al div contenedor a través del ref
+    const container = qrcodeContainerRef.value;
+
+    // 2. Busca la etiqueta <img> dentro del contenedor
+    const imgElement = container ? container.querySelector('img') : null;
+
+    if (imgElement && imgElement.src) {
+        const dataUrl = imgElement.src;
+
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'shorteca-qrcode.png';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        toast.add({
+            severity: 'success',
+            summary: 'Descarga exitosa',
+            detail: 'El código QR ha sido descargado.',
+            life: 3000
+        });
+    } else {
+        console.error("No se pudo encontrar el elemento de imagen.");
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'El QR no está listo para ser descargado. Inténtalo de nuevo.',
+            life: 3000
+        });
+    }
+  }, 100);
+};
 
 
 const copyLink = () => {
@@ -57,9 +95,14 @@ const copyLink = () => {
                 </Button>
             </div>
         </div>
-        <div class="flex justify-center mt-4">
-            <VueQrcode :scale="6" :value="link" />
-        </div>
+        <ClientOnly>
+          <div ref="qrcodeContainerRef" class="flex justify-center mt-4">
+            <VueQrcode :scale="6" :value="link" tag="img" />
+          </div>
+          <div class="flex justify-center py-3">
+            <Button label="Descargar" severity="success" variant="outlined" @click="downloadQrCode" />
+          </div>
+        </ClientOnly>
     </template>
     <template #footer>
         <div class="flex justify-center gap-5">

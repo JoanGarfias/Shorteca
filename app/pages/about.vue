@@ -5,12 +5,12 @@ const modeSelector = useModeSelector();
 
 <template>
 
-<div class="min-h-screen my-12 justify-center backdrop-blur-3xl bg-cover! bg-center! bg-no-repeat!">
+<div class="min-h-10/12 my-8 justify-center backdrop-blur-3xl bg-cover! bg-center! bg-no-repeat!">
     <p class="text-center font-bold text-4xl"
     :class="{'text-indigo-100': modeSelector.mode === 'dark','text-indigo-600': modeSelector.mode === 'light'}">
         Acerca de Shorteca
     </p>
-    <Card class="mx-auto max-w-lg p-4 mt-8">
+    <Card class="mx-auto max-w-xl p-4 mt-8">
         <template #content>
             <div class="flex flex-col items-center gap-4 w-full">
                 <img src="@@/assets/logo.svg" alt="Shorteca Logo" class="w-32 h-32 mb-4" />

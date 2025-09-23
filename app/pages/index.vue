@@ -67,7 +67,7 @@ watch(typeConfig, () => {
 <template>
 <Toast />
 
-<p class="py-2" />
+<p class="py-10" />
 <h2 class="text-xl md:text-2xl font-bold text-center">
     <span class="inline-block">Acorta enlaces gratis, fácil y seguro con</span>
     <span class="inline-block px-2 text-purple-400">Shorteca.</span>
@@ -77,7 +77,7 @@ watch(typeConfig, () => {
     <div class="flex justify-center items-center link-item max-w-xl mx-auto">
         <InputGroup>
             <InputText v-model="link" placeholder="Ingresa tu enlace" />
-            <Button label="Acortar" @click="generateLink" />
+            <Button label="Acortar" @click="generateLink" :disabled="showGeneratingAnimation" />
         </InputGroup>
     </div>
     <div class="flex flex-row items-center p-2 gap-2 text-bold max-w-xl mx-auto" :class="{ 'text-fuchsia-300': modeSelector.mode === 'dark', 'text-fuchsia-800': modeSelector.mode === 'light' }">

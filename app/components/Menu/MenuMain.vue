@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-const modeDark = ref<boolean>(false);
 const modeSelector = useModeSelector();
 const infoUser = useInfoUser();
+
+const menuProfile = ref();
+const modeDark = ref<boolean>(false);
 
 const changeModeSelector = () => {
   modeDark.value = !modeDark.value;
@@ -12,6 +14,10 @@ const changeModeSelector = () => {
   }else{
     modeSelector.changeToLightMode();
   }
+};
+
+const showMenuProfile = (event : any) => {
+  menuProfile.value.toggle(event)
 };
 
 const getInitials = (name: string) => {
@@ -40,6 +46,20 @@ const items = ref([
         page: '/about'
     },
 ]);
+
+const itemsProfile = ref([
+    {
+        label: 'Perfil',
+        icon: 'pi pi-user',
+        url: '/profile'
+    },
+    {
+        label: 'Cerrar sesión',
+        icon: 'pi pi-sign-out',
+        url: '/logout'
+    },
+]);
+
 </script>
 
 
@@ -92,7 +112,11 @@ const items = ref([
                         <NuxtLink v-if="!infoUser.isLogged" to="/login">
                             <Button type="button" label="Ingresar" icon="pi pi-user" badgeSeverity="contrast" variant="outlined" />
                         </NuxtLink>
-                        <Avatar v-else :label="getInitials(infoUser.name)" shape="circle" />
+                        <div v-else >
+                            <Avatar class="hover:cursor-pointer" :label="getInitials(infoUser.name)" shape="circle" @click="showMenuProfile($event)" />
+                            <Menu ref="menuProfile" id="overlay_menu" :model="itemsProfile" :popup="true">
+                            </Menu>
+                        </div>
                     </div>
                 </div>
             </template>

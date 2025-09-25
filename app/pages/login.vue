@@ -1,10 +1,31 @@
 <script setup lang="ts">
+import { config } from "@@/app/config/env"
 const modeSelector = useModeSelector();
 const infoUser = useInfoUser();
+
+const username = ref('');
+const email = ref('');
+const password = ref('');
 
 const login = () => {
   infoUser.isLogged = true;
   console.log('Login');
+  loginPost();
+}
+
+const loginPost = async () => {
+  try {
+    await useSanctumFetch(config.API_BASE + '/api/login', {
+      method: 'POST',
+      body: {
+        username: username.value,
+        email: email.value,
+        password: password.value
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 </script>
@@ -33,7 +54,10 @@ const login = () => {
                 <div class="flex flex-col gap-6 w-full">
                     <IconField>
                         <InputIcon class="pi pi-user" />
-                        <InputText type="text" class="appearance-none! border! w-full! outline-0! rounded-3xl! shadow-sm!" placeholder="Usuario" />
+                        <InputText type="text"
+                        class="appearance-none! border! w-full! outline-0! rounded-3xl! shadow-sm!"
+                        placeholder="Usuario"
+                        v-model="username"/>
                     </IconField>
                     <IconField>
                         <InputIcon class="pi pi-lock" />

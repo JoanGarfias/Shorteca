@@ -1,11 +1,38 @@
 <script setup lang="ts">
+import { config } from "@@/app/config/env"
 const modeSelector = useModeSelector();
 
 // Variables reactivas para los campos del formulario
 const username = ref('');
-const fullName = ref('');
 const email = ref('');
 const password = ref('');
+
+
+//Petición de registro
+
+// const registerApi = async () => {
+//   const data = await $fetch(config.API_BASE + '/api/register', {
+//     method: 'POST',
+//     credentials: 'include',
+//     body: {
+//       username: username.value,
+//       email: email.value,
+//       password: password.value
+//     }
+//   });
+// }
+
+const registerApi = async () => {
+  await useSanctumFetch(config.API_BASE + '/api/register', {
+    method: 'POST',
+    body: {
+      username: username.value,
+      email: email.value,
+      password: password.value
+    }
+  });
+}
+
 </script>
 
 <template>
@@ -52,7 +79,10 @@ const password = ref('');
                 />
               </IconField>
             </div>
-            <Button label="Registrarse" class="w-full! rounded-3xl! bg-surface-950! border! border-surface-950! text-white! hover:bg-surface-950/80!" />
+            <Button label="Registrarse"
+            class="w-full! rounded-3xl! bg-surface-950! border! border-surface-950! text-white! hover:bg-surface-950/80!"
+            @click="registerApi"
+            />
           </div>
         </div>
       </template>

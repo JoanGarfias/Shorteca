@@ -2,10 +2,14 @@
 import { ref } from "vue";
 import LinkGenerated from "~/components/LinkGenerated.vue";
 import { useToast } from 'primevue/usetoast';
+import { config } from "@@/app/config/env"
 
+const headers = useRequestHeaders();
 const modeSelector = useModeSelector();
 const infoUser = useInfoUser();
 const toast = useToast();
+
+const tokenCsrf = await $fetch(config.API_BASE + '/sanctum/csrf-cookie')
 
 //Datos del enlace a generar
 const link = ref<string>('');

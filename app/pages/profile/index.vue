@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'sanctum:auth'
+});
+
 const infoUser = useInfoUser();
 import TableLinks from "@@/app/components/Profile/TableLinks.vue";
 

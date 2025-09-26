@@ -31,6 +31,15 @@ export default defineNuxtConfig({
   ],
   sanctum: {
     baseUrl: 'http://localhost:8080',
+    mode: 'cookie',
+    redirect: {
+      onLogin: '/profile',
+      onLogout: '/',
+    },
+    endpoints: {
+      login: '/api/login',
+      logout: '/logout',
+    }
   },
   nitro: {
     devProxy: {

@@ -23,14 +23,16 @@ const password = ref('');
 // }
 
 const registerApi = async () => {
-  await useSanctumFetch(config.API_BASE + '/api/register', {
+  const { data } = await useSanctumFetch(config.API_BASE + '/api/register', {
     method: 'POST',
+    credentials: 'include',
     body: {
       username: username.value,
       email: email.value,
       password: password.value
     }
   });
+  console.log(data);
 }
 
 </script>

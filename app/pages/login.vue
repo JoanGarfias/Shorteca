@@ -2,26 +2,22 @@
 import { config } from "@@/app/config/env"
 const modeSelector = useModeSelector();
 const infoUser = useInfoUser();
+const { login } = useSanctumAuth();
 
 const username = ref('');
 const email = ref('');
 const password = ref('');
 
-const login = () => {
-  infoUser.isLogged = true;
-  console.log('Login');
-  loginPost();
-}
-
 const loginPost = async () => {
+  const userCredentials = {
+    username: username.value,
+    email: email.value,
+    password: password.value,
+  };
   try {
-    await useSanctumFetch(config.API_BASE + '/api/login', {
-      method: 'POST',
-      body: {
-        username: username.value,
-        email: email.value,
-        password: password.value
-      }
+    await login(userCredentials).then((response) => {
+      infoUser.isLogged = true;
+      console.log(response);
     });
   } catch (error) {
     console.error(error);
@@ -72,7 +68,7 @@ const loginPost = async () => {
                     </IconField>
                 </div>
                 <Button label="Ingresar" class="w-full! rounded-3xl! bg-surface-950! border! border-surface-950! text-white! hover:bg-surface-950/80!"
-                @click="login"
+                @click="loginPost"
                 />
             </div>
             <a class="cursor-pointer">Olvidé mi contraseña</a>
